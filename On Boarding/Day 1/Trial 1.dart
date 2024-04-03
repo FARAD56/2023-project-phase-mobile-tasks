@@ -3,33 +3,44 @@ class Task{
   String? description;
   String? status;
   DateTime? dueDate;
+
+  Task(String? title, String? description, String? status, DateTime? dueDate){
+    this.title = title;
+    this.description = description;
+    this.status = status;
+    this.dueDate = dueDate;
+  }
 }
 
 class TaskManager{
   List<Task>  tasks = [];
 
-  void addNewTask(Task task){
-    tasks.add(task);
-  }
-
-  void addNewTaskParam(String? title, String? description, String? status, DateTime? dueDate){
-    var task = Task();
-    if (title != null) task.title = title;
-    if (description != null)  task.description = description;
-    if (status != null) task.status = status;
-    if (dueDate != null) task.dueDate = dueDate;
-    tasks.add(task);
+  void addNewTask(String? title, String? description, String? status, DateTime? dueDate){
+    tasks.add(Task(title,description,status,dueDate));
   }
 
   List<Task> viewAllTasks(){
+    for (Task task in tasks){
+        print(task.title);
+    }
     return tasks;
   }
 
   List<Task> viewOnlyCompletedTasks(){
+    for (Task task in tasks){
+      if (task.status == 'completed'){
+        print(task.title);
+      }
+    }
     return tasks.where((task) => task.status == 'completed').toList();
   }
 
   List<Task> viewOnlyPendingTasks(){
+    for (Task task in tasks){
+      if (task.status == 'pending'){
+        print(task.title);
+      }
+    }
     return tasks.where((task) => task.status == 'pending').toList();
   }
 
@@ -40,10 +51,9 @@ class TaskManager{
       if (status != null) tasks[index].status = status;
       if (dueDate != null) tasks[index].dueDate = dueDate;
     }
-
   }
 
-  void deleteATask(int index){
+  void deleteTask(int index){
     if (index > -1 && index < tasks.length){
       tasks.removeAt(index);
     }
@@ -52,14 +62,19 @@ class TaskManager{
 }
 
 void main(){
-  var tm = TaskManager();
-  tm.addNewTask(Task());
+  Map<int, String> status = {0: 'pending', 1:'completed'};
 
-  for (var i=0; i <10; i++){
-    tm.addNewTaskParam('title'+ (i+1).toString(), 'description'+(i+1).toString(), 'pending', null);
-  }
+  TaskManager tm = TaskManager();
+  tm.addNewTask('a', 'b', 'c', null);
 
-  for (Task task in tm.viewAllTasks()){
-    print(task.title);
+  for (int i=0; i <10; i++){
+    tm.addNewTask('title' + (i+1).toString(), 'description', status[i%2], null);
   }
+  tm.viewAllTasks();
+  print('');
+  tm.deleteTask(0);
+  tm.viewOnlyCompletedTasks();
+  print('');
+  tm.viewOnlyPendingTasks();
+
 }

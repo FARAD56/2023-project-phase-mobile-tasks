@@ -3,24 +3,32 @@ class Task{
   String? description;
   String? status;
   DateTime? dueDate;
+
+  Task(String? title, String? description, String? status, DateTime? dueDate){
+    this.title = title;
+    this.description = description;
+    this.status = status;
+    this.dueDate = dueDate;
+  }
+
 }
 
 class TaskManager{
-  List <Task>  tasks = [];
+  List<Task>  tasks = [];
 
-  void addNewTask(Task task){
-    tasks.add(task);
+  void addNewTask(String? title, String? description, String? status, DateTime? dueDate){
+    tasks.add(Task(title,description,status,dueDate));
   }
 
-  List <Task> viewAllTasks(){
+  List<Task> viewAllTasks(){
     return tasks;
   }
 
-  List <Task> viewOnlyCompletedTasks(){
+  List<Task> viewOnlyCompletedTasks(){
     return tasks.where((task) => task.status == 'completed').toList();
   }
 
-  List <Task> viewOnlyPendingTasks(){
+  List<Task> viewOnlyPendingTasks(){
     return tasks.where((task) => task.status == 'pending').toList();
   }
 
@@ -31,10 +39,9 @@ class TaskManager{
       if (status != null) tasks[index].status = status;
       if (dueDate != null) tasks[index].dueDate = dueDate;
     }
-
   }
 
-  void deleteATask(int index){
+  void deleteTask(int index){
     if (index > -1 && index < tasks.length){
       tasks.removeAt(index);
     }
