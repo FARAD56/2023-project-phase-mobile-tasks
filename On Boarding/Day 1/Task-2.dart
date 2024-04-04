@@ -67,10 +67,10 @@ class TaskManager{
 
   void editTask(int index, String? title, String? description, String? status, DateTime? dueDate){
     if (index > -1 && index < tasks.length){
-      if (title != null) tasks[index]._title = title;
-      if (description != null)  tasks[index]._description = description;
-      if (status != null) tasks[index]._status = status;
-      if (dueDate != null) tasks[index]._dueDate = dueDate;
+      if (title != null) tasks[index].setTitle(title);
+      if (description != null)  tasks[index].setDescription(description);
+      if (status != null) tasks[index].setStatus(status);
+      if (dueDate != null) tasks[index].setDate(dueDate);
     }
   }
 
