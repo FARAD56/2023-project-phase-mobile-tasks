@@ -53,16 +53,24 @@ class TaskManager{
     tasks.add(task);
   }
 
-  List<Task> viewAllTasks(){
-    return tasks;
+  void viewAllTasks(){
+    for (Task task in tasks){
+      print(task._title);
+    }  
   }
 
-  List<Task> viewOnlyCompletedTasks(){
-    return tasks.where((task) => task._status == 'completed').toList();
+  void viewOnlyCompletedTasks(){
+    for (Task task in tasks){
+        if (task._status == 'completed')
+          print(task._title);
+    }  
   }
 
-  List<Task> viewOnlyPendingTasks(){
-    return tasks.where((task) => task._status == 'pending').toList();
+  void viewOnlyPendingTasks(){
+    for (Task task in tasks){
+      if (task._status == 'pending')
+        print(task._title);
+    }
   }
 
   void editTask(int index, String? title, String? description, String? status, DateTime? dueDate){
@@ -79,5 +87,29 @@ class TaskManager{
       tasks.removeAt(index);
     }
   }
+
+}
+
+
+
+void main(){
+  Map<int, String> status = {0: 'pending', 1:'completed'};
+
+  TaskManager tm = TaskManager();
+  tm.addNewTask('a', 'b', 'c', null);
+
+  for (int i=0; i <10; i++){
+    tm.addNewTask('title' + (i+1).toString(), 'description', status[i%2], null);
+  }
+  tm.viewAllTasks();
+  tm.editTask(0,'b',null,null,null);
+  tm.viewAllTasks();
+
+  print('');
+  tm.deleteTask(0);
+  tm.viewOnlyCompletedTasks();
+  print('');
+  tm.viewOnlyPendingTasks();
+
 
 }
