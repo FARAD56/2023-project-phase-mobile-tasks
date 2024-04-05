@@ -55,21 +55,21 @@ class TaskManager{
 
   void viewAllTasks(){
     for (Task task in tasks){
-      print(task._title);
+      print(task.getTitle());
     }  
   }
 
   void viewOnlyCompletedTasks(){
     for (Task task in tasks){
         if (task._status == 'completed')
-          print(task._title);
+          print(task.getTitle());
     }  
   }
 
   void viewOnlyPendingTasks(){
     for (Task task in tasks){
       if (task._status == 'pending')
-        print(task._title);
+        print(task.getTitle());
     }
   }
 

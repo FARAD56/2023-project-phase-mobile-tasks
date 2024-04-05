@@ -1,12 +1,46 @@
-import 'dart:io';
+class Task{
+  String? _title;
+  String? _description;
+  String? _status;
+  DateTime? _dueDate;
 
-void main(){
-  print("Enter your number");
-  var input = stdin.readLineSync();
-  print(double.parse((input ?? '')));
+  Task(String? title, String? description, String? status, DateTime? dueDate){
+    this._title = title;
+    this._description = description;
+    this._status = status;
+    this._dueDate = dueDate;
+  }
 
-  print("Enter your number");
-  var input2 = stdin.readLineSync();
-  print(double.parse((input2 ?? '')));
+  void setTitle(String title) {
+    this._title = title;
+  }
+
+  void setDescription(String description) {
+    this._description = description;
+  }
+
+  void setDate(DateTime dueDate) {
+    this._dueDate = dueDate;
+  }
+
+  void setStatus(String? status) {
+    this._status = status;
+  }
+
+  String? getTitle() {
+    return this._title;
+  }
+
+  String? getDescription() {
+    return this._description;
+  }
+
+  DateTime? getDate() {
+    return this._dueDate;
+  }
+
+  String? getStatus() {
+    return this._status;
+  }
 
 }
