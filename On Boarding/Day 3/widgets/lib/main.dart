@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,7 +41,7 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blue,
-          title: const Text('My App',
+          title: const Text('Circular Counter App',
             style: TextStyle(
               color: Colors.white,
             ),
@@ -50,10 +51,17 @@ class _MyAppState extends State<MyApp> {
 
 
         body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         
         children: [
-          const SizedBox(width: double.infinity,),
+          // TextButton(
+          //   style: TextButton.styleFrom(
+          //     foregroundColor: Colors.blue,
+          //     backgroundColor: MaterialColor(primary, swatch)
+          //   ),
+          //   onPressed: () {setState(() {count.incrementCount();}); },
+          //   child: const Text('TextButton'),
+          // ),
 
           Container(
             padding: const EdgeInsets.all(16.0),
@@ -73,7 +81,7 @@ class _MyAppState extends State<MyApp> {
                 
           
           Padding(
-            padding: const EdgeInsets.all(48.0),
+            padding: const EdgeInsets.all(12.0),
             child: Row(     
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children:[
@@ -83,14 +91,14 @@ class _MyAppState extends State<MyApp> {
                   },
                   child: Container(
                     padding: const EdgeInsets.all(16.0),
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
+                    decoration: BoxDecoration(
                       color: Colors.green,
+                      borderRadius: BorderRadius.circular(20.0),
                     ),
                     child: 
-                      const Text('+',
+                      const Text('Increment',
                       style: TextStyle(
-                        fontSize: 30.0,
+                        fontSize: 20.0,
                         color: Colors.white,
                       ),)
                   ),
@@ -101,15 +109,15 @@ class _MyAppState extends State<MyApp> {
                     setState(() {count.decrementCount();});
                   } ,
                   child: Container(
-                    padding: const EdgeInsets.all(20.0),
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
+                    padding: const EdgeInsets.all(16.0),
+                    decoration: BoxDecoration(
                       color: Colors.red,
+                      borderRadius: BorderRadius.circular(20),
                     ),
                     child: 
-                      const Text('-',
+                      const Text('Decrement',
                         style: TextStyle(
-                          fontSize: 30.0,
+                          fontSize: 20.0,
                           color: Colors.white,
                         ),
                       ),
