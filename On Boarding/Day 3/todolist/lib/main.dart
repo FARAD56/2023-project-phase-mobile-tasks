@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todolist/create_new_task.dart';
+import 'package:todolist/task_details.dart';
 import 'package:todolist/to_do_list.dart';
 
 void main() {
@@ -8,6 +9,7 @@ void main() {
       routes: {
         "/todo": (context) => const ToDoList(),
         '/newTask': (context) => const CreateTask(),
+        '/taskDetail': (context) => const TaskDetails(),
       },
       home: const MyApp()));
 }
