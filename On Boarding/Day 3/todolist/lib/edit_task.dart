@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import 'models/taskclass.dart';
 
-class CreateTask extends StatefulWidget {
-  const CreateTask({super.key});
+class EditTask extends StatefulWidget {
+  const EditTask({super.key});
 
   @override
-  State<CreateTask> createState() => _CreateTaskState();
+  State<EditTask> createState() => _EditTaskState();
 }
 
-class _CreateTaskState extends State<CreateTask> {
+class _EditTaskState extends State<EditTask> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   @override
@@ -22,6 +22,7 @@ class _CreateTaskState extends State<CreateTask> {
   String date = '2019-11-23';
   @override
   Widget build(BuildContext context) {
+    Task task = ModalRoute.of(context)!.settings.arguments as Task;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -55,7 +56,7 @@ class _CreateTaskState extends State<CreateTask> {
               margin: const EdgeInsets.fromLTRB(0, 8, 0, 24),
               alignment: AlignmentDirectional.center,
               child: const Text(
-                'Create new task',
+                'Edit task',
                 style: TextStyle(
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.bold,
@@ -82,7 +83,7 @@ class _CreateTaskState extends State<CreateTask> {
               child: TextField(
                 controller: titleController,
                 decoration: InputDecoration(
-                  hintText: 'eg. UI/UX Design App',
+                  hintText: task.getTitle(),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -109,7 +110,7 @@ class _CreateTaskState extends State<CreateTask> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      date,
+                      task.getDate(),
                       style: const TextStyle(
                         fontFamily: 'Poppins',
                         fontStyle: FontStyle.normal,
@@ -117,23 +118,24 @@ class _CreateTaskState extends State<CreateTask> {
                       ),
                     ),
                     IconButton(
-                        onPressed: () async {
-                          final datetime = await showDatePicker(
-                              context: context,
-                              firstDate: DateTime.now(),
-                              lastDate: DateTime.utc(2050, 12, 30));
-                          setState(() {
-                            if (datetime != null) {
-                              date = datetime.toString();
-                              date = date.split(' ')[0];
-                            }
-                          });
-                        },
-                        icon: const Icon(
-                          Icons.date_range_outlined,
-                          size: 30,
-                          color: Color.fromRGBO(238, 111, 87, 1),
-                        ))
+                      onPressed: () async {
+                        final datetime = await showDatePicker(
+                            context: context,
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime.utc(2050, 12, 30));
+                        setState(() {
+                          if (datetime != null) {
+                            date = datetime.toString();
+                            date = date.split(' ')[0];
+                          }
+                        });
+                      },
+                      icon: const Icon(
+                        Icons.date_range_outlined,
+                        size: 30,
+                        color: Color.fromRGBO(238, 111, 87, 1),
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -144,9 +146,10 @@ class _CreateTaskState extends State<CreateTask> {
               child: const Text(
                 'Desciption',
                 style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromRGBO(238, 111, 87, 1)),
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromRGBO(238, 111, 87, 1),
+                ),
               ),
             ),
             Padding(
@@ -154,8 +157,7 @@ class _CreateTaskState extends State<CreateTask> {
               child: TextField(
                 controller: descriptionController,
                 decoration: InputDecoration(
-                  hintText:
-                      'eg. First I have to animate the logo and later prototype my design',
+                  hintText: task.getDescription(),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -169,21 +171,34 @@ class _CreateTaskState extends State<CreateTask> {
                   backgroundColor: const Color.fromRGBO(238, 111, 87, 1),
                 ),
                 onPressed: () {
-                  if (titleController.text == '') {
-                    titleController.text = 'Task ${taskManager.tasks.length}';
-                  }
-                  if (descriptionController.text == '') {
-                    descriptionController.text = 'Update me later';
-                  }
-                  if (date == '2019-11-23') {
-                    date = DateTime.now().toString().split(' ')[0];
-                  }
-                  Task task = Task(
-                      titleController.text, descriptionController.text, date);
-                  Navigator.pop(context, task);
+                  Navigator.popUntil(
+                    context,
+                    (settings) {
+                      setState(() {
+                        if (titleController.text != '') {
+                          task.setTitle(titleController.text);
+                        } else {
+                          task.setTitle(task.getTitle());
+                        }
+
+                        if (descriptionController.text != '') {
+                          task.setDescription(descriptionController.text);
+                        } else {
+                          task.setDescription(task.getDescription());
+                        }
+
+                        if (date != task.getDate()) {
+                          task.setDate(date);
+                        } else {
+                          task.setDate(task.getDate());
+                        }
+                      });
+                      return settings.settings.name == '/todo';
+                    },
+                  );
                 },
                 child: const Text(
-                  'Add Task',
+                  'Edit Task',
                   style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'Poppins',

@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 
-class ToDoList extends StatelessWidget {
+import 'models/taskclass.dart';
+
+class ToDoList extends StatefulWidget {
   const ToDoList({super.key});
+
+  @override
+  State<ToDoList> createState() => _ToDoListState();
+}
+
+class _ToDoListState extends State<ToDoList> {
 
   @override
   Widget build(BuildContext context) {
@@ -59,11 +67,14 @@ class ToDoList extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: ListView(
-              children: [
-                InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/taskDetail');
+            child: ListView.builder(
+              itemCount: taskManager.tasks.length,
+              itemBuilder: (context, index) {
+                return InkWell(
+                  onTap: () async {
+                    await Navigator.pushNamed(context, '/taskDetail',
+                        arguments: taskManager.tasks[index]);
+                    setState(() {});
                   },
                   child: Card(
                     shape: RoundedRectangleBorder(
@@ -75,17 +86,17 @@ class ToDoList extends StatelessWidget {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       tileColor: Colors.white,
-                      leading: const Text(
-                        'U',
-                        style: TextStyle(
+                      leading: Text(
+                        taskManager.tasks[index].getTitle()[0],
+                        style: const TextStyle(
                           fontFamily: 'Poppins',
                           fontStyle: FontStyle.normal,
                           fontSize: 22,
                         ),
                       ),
-                      title: const Text(
-                        'UI/UX App',
-                        style: TextStyle(
+                      title: Text(
+                        taskManager.tasks[index].getTitle(),
+                        style: const TextStyle(
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.normal,
@@ -105,9 +116,9 @@ class ToDoList extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Text(
-                            'April,20,2023',
-                            style: TextStyle(
+                          Text(
+                            taskManager.tasks[index].getDate(),
+                            style: const TextStyle(
                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                               fontStyle: FontStyle.normal,
@@ -124,191 +135,8 @@ class ToDoList extends StatelessWidget {
                       ),
                     ),
                   ),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/taskDetail');
-                  },
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    margin: const EdgeInsets.all(12.0),
-                    elevation: 5,
-                    child: ListTile(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      tileColor: Colors.white,
-                      leading: const Text(
-                        'U',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontStyle: FontStyle.normal,
-                          fontSize: 22,
-                        ),
-                      ),
-                      title: const Text(
-                        'UI/UX App',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.normal,
-                          fontSize: 15,
-                        ),
-                      ),
-                      subtitle: const Text(
-                        'Design',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.normal,
-                          fontSize: 13,
-                        ),
-                      ),
-                      trailing: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Text(
-                            'April,20,2023',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w500,
-                              fontStyle: FontStyle.normal,
-                              fontSize: 12,
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.fromLTRB(8, 0, 2, 0),
-                            height: double.infinity,
-                            width: 3,
-                            color: Colors.green,
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/taskDetail');
-                  },
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    margin: const EdgeInsets.all(12.0),
-                    elevation: 5,
-                    child: ListTile(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      tileColor: Colors.white,
-                      leading: const Text(
-                        'V',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontStyle: FontStyle.normal,
-                          fontSize: 22,
-                        ),
-                      ),
-                      title: const Text(
-                        'View candidates',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.normal,
-                          fontSize: 15,
-                        ),
-                      ),
-                      trailing: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Text(
-                            'April,20,2023',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w500,
-                              fontStyle: FontStyle.normal,
-                              fontSize: 12,
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.fromLTRB(8, 0, 2, 0),
-                            height: double.infinity,
-                            width: 3,
-                            color: Colors.yellow,
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/taskDetail');
-                  },
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    margin: const EdgeInsets.all(12.0),
-                    elevation: 5,
-                    child: ListTile(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      tileColor: Colors.white,
-                      leading: const Text(
-                        'F',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontStyle: FontStyle.normal,
-                          fontSize: 22,
-                        ),
-                      ),
-                      title: const Text(
-                        'Football Cu',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.normal,
-                          fontSize: 15,
-                        ),
-                      ),
-                      subtitle: const Text(
-                        'Drybling',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.normal,
-                          fontSize: 13,
-                        ),
-                      ),
-                      trailing: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Text(
-                            'April,20,2023',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w500,
-                              fontStyle: FontStyle.normal,
-                              fontSize: 12,
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.fromLTRB(8, 0, 2, 0),
-                            height: double.infinity,
-                            width: 3,
-                            color: Colors.red,
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+                );
+              },
             ),
           ),
           Padding(
@@ -319,8 +147,12 @@ class ToDoList extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(50, 10, 50, 10),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(6))),
-                onPressed: () {
-                  Navigator.pushNamed(context, "/newTask");
+                onPressed: () async {
+                  Task task =
+                      await Navigator.pushNamed(context, "/newTask") as Task;
+                  setState(() {
+                    taskManager.tasks.add(task);
+                  });
                 },
                 child: const Text(
                   'Create Task',

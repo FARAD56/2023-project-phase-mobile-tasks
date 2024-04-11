@@ -1,15 +1,36 @@
 import 'package:flutter/material.dart';
+
 import 'package:todolist/create_new_task.dart';
+import 'package:todolist/edit_task.dart';
 import 'package:todolist/task_details.dart';
 import 'package:todolist/to_do_list.dart';
 
 void main() {
   runApp(MaterialApp(
       initialRoute: "/",
+      onGenerateRoute: (settings) {
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => Container(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            var begin = const Offset(1.0, 0.0);
+            var end = Offset.zero;
+            var curve = Curves.ease;
+
+            var tween =
+                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+            return SlideTransition(
+              position: animation.drive(tween),
+              child: child,
+            );
+          },
+        );
+      },
       routes: {
         "/todo": (context) => const ToDoList(),
         '/newTask': (context) => const CreateTask(),
         '/taskDetail': (context) => const TaskDetails(),
+        '/editTask': (context) => const EditTask(),
       },
       home: const MyApp()));
 }

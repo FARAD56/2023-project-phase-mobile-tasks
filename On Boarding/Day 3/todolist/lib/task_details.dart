@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
+import 'models/taskclass.dart';
+
 class TaskDetails extends StatelessWidget {
   const TaskDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Task task = ModalRoute.of(context)!.settings.arguments as Task;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -59,11 +62,11 @@ class TaskDetails extends StatelessWidget {
               borderRadius: BorderRadius.circular(2),
             ),
             margin: const EdgeInsets.fromLTRB(20, 4, 20, 20),
-            child: const Padding(
-              padding: EdgeInsets.all(12.0),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
               child: Text(
-                'UI/UX App Design',
-                style: TextStyle(
+                task.getTitle(),
+                style: const TextStyle(
                   fontFamily: 'Poppins',
                   fontSize: 16,
                 ),
@@ -84,12 +87,12 @@ class TaskDetails extends StatelessWidget {
               borderRadius: BorderRadius.circular(2),
             ),
             margin: const EdgeInsets.fromLTRB(20, 4, 20, 20),
-            child: const Padding(
-              padding: EdgeInsets.fromLTRB(8, 10, 8, 25),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(8, 10, 8, 25),
               child: Text(
-                ' It’svery important. It’svery important.',
+                task.getDescription(),
                 softWrap: true,
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'Poppins',
                 ),
               ),
@@ -109,19 +112,36 @@ class TaskDetails extends StatelessWidget {
               borderRadius: BorderRadius.circular(2),
             ),
             margin: const EdgeInsets.fromLTRB(20, 4, 20, 20),
-            child: const Row(
+            child: Row(
               children: [
                 Padding(
-                  padding: EdgeInsets.all(12.0),
+                  padding: const EdgeInsets.all(12.0),
                   child: Text(
-                    'April,23, 2023',
-                    style: TextStyle(
+                    task.getDate(),
+                    style: const TextStyle(
                         fontFamily: 'Poppins', fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(90, 10, 90, 10),
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/editTask', arguments: task);
+                },
+                child: const Text(
+                  'Edit Task',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.bold),
+                )),
+          )
         ],
       ),
     );
