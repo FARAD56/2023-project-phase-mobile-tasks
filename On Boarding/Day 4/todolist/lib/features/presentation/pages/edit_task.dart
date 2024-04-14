@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/features/presentation/widgets/app_bar.dart';
 
-import 'models/taskclass.dart';
+import '../../../models/taskclass.dart';
 
 class EditTask extends StatefulWidget {
   const EditTask({super.key});
@@ -24,64 +25,32 @@ class _EditTaskState extends State<EditTask> {
   Widget build(BuildContext context) {
     Task task = ModalRoute.of(context)!.settings.arguments as Task;
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Padding(
-          padding: const EdgeInsets.fromLTRB(4, 16, 4, 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: const Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  color: Color.fromRGBO(238, 111, 87, 1),
-                  size: 32,
-                ),
-              ),
-              const Icon(
-                Icons.more_vert_outlined,
-                size: 36,
-              )
-            ],
-          ),
-        ),
-      ),
+      appBar: customAppBar(context, ''),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
               margin: const EdgeInsets.fromLTRB(0, 8, 0, 24),
               alignment: AlignmentDirectional.center,
-              child: const Text(
-                'Edit task',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30,
-                ),
-              ),
+              child: Text('Edit Task',
+                  style: Theme.of(context).textTheme.bodyLarge!),
             ),
             const Divider(
               thickness: 1,
             ),
             Container(
-              margin: const EdgeInsets.fromLTRB(20, 8, 0, 0),
-              alignment: AlignmentDirectional.centerStart,
-              child: const Text(
-                'Main task name',
-                style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromRGBO(238, 111, 87, 1)),
-              ),
-            ),
+                margin: const EdgeInsets.fromLTRB(20, 8, 0, 0),
+                alignment: AlignmentDirectional.centerStart,
+                child: Text(
+                  'Main task name',
+                  style: Theme.of(context).textTheme.bodyMedium!,
+                )),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
               child: TextField(
                 controller: titleController,
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: Colors.black, fontWeight: FontWeight.normal),
                 decoration: InputDecoration(
                   hintText: task.getTitle(),
                   border: OutlineInputBorder(
@@ -111,11 +80,10 @@ class _EditTaskState extends State<EditTask> {
                   children: [
                     Text(
                       task.getDate(),
-                      style: const TextStyle(
-                        fontFamily: 'Poppins',
-                        fontStyle: FontStyle.normal,
-                        fontSize: 16,
-                      ),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(color: Colors.black),
                     ),
                     IconButton(
                       onPressed: () async {
@@ -156,6 +124,8 @@ class _EditTaskState extends State<EditTask> {
               padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
               child: TextField(
                 controller: descriptionController,
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: Colors.black, fontWeight: FontWeight.normal),
                 decoration: InputDecoration(
                   hintText: task.getDescription(),
                   border: OutlineInputBorder(

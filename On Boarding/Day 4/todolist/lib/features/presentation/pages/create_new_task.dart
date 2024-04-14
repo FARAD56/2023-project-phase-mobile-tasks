@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'models/taskclass.dart';
+import '../widgets/app_bar.dart';
+import '../../../models/taskclass.dart';
 
 class CreateTask extends StatefulWidget {
   const CreateTask({super.key});
@@ -24,31 +25,7 @@ class _CreateTaskState extends State<CreateTask> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Padding(
-          padding: const EdgeInsets.fromLTRB(4, 16, 4, 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: const Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  color: Color.fromRGBO(238, 111, 87, 1),
-                  size: 32,
-                ),
-              ),
-              const Icon(
-                Icons.more_vert_outlined,
-                size: 36,
-              )
-            ],
-          ),
-        ),
-      ),
+      appBar: customAppBar(context, ''),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -57,13 +34,9 @@ class _CreateTaskState extends State<CreateTask> {
               Container(
                 margin: const EdgeInsets.fromLTRB(0, 8, 0, 24),
                 alignment: AlignmentDirectional.center,
-                child: const Text(
+                child: Text(
                   'Create new task',
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                  ),
+                  style: Theme.of(context).textTheme.bodyLarge!,
                 ),
               ),
               const Divider(
@@ -89,6 +62,7 @@ class _CreateTaskState extends State<CreateTask> {
                     }
                     return null;
                   },
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.black),
                   controller: titleController,
                   decoration: InputDecoration(
                     hintText: 'eg. UI/UX Design App',
@@ -132,11 +106,7 @@ class _CreateTaskState extends State<CreateTask> {
                       children: [
                         Text(
                           date,
-                          style: const TextStyle(
-                            fontFamily: 'Poppins',
-                            fontStyle: FontStyle.normal,
-                            fontSize: 16,
-                          ),
+                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.black)
                         ),
                         const Icon(
                           Icons.date_range_outlined,
@@ -164,10 +134,11 @@ class _CreateTaskState extends State<CreateTask> {
                 child: TextFormField(
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter some text';
+                      return 'Enter some text';
                     }
                     return null;
                   },
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.black),
                   controller: descriptionController,
                   decoration: InputDecoration(
                     hintText:

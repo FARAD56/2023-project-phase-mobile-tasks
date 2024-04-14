@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/features/presentation/widgets/app_bar.dart';
 
-import 'models/taskclass.dart';
+import '../../../models/taskclass.dart';
 
 class ToDoList extends StatefulWidget {
   const ToDoList({super.key});
@@ -14,37 +15,7 @@ class _ToDoListState extends State<ToDoList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Padding(
-          padding: const EdgeInsets.fromLTRB(4, 16, 4, 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: const Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  color: Color.fromRGBO(238, 111, 87, 1),
-                  size: 32,
-                ),
-              ),
-              const Text(
-                'Todo List',
-                style: TextStyle(
-                  fontSize: 18,
-                ),
-              ),
-              const Icon(
-                Icons.more_vert_outlined,
-                size: 36,
-              )
-            ],
-          ),
-        ),
-      ),
+      appBar: customAppBar(context, 'Todo List'),
       body: Column(
         children: [
           Image.asset(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/features/presentation/widgets/app_bar.dart';
 
-import 'models/taskclass.dart';
+import '../../../models/taskclass.dart';
 
 class TaskDetails extends StatelessWidget {
   const TaskDetails({super.key});
@@ -9,38 +10,7 @@ class TaskDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     Task task = ModalRoute.of(context)!.settings.arguments as Task;
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Padding(
-          padding: const EdgeInsets.fromLTRB(4, 16, 4, 0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: const Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  color: Color.fromRGBO(238, 111, 87, 1),
-                  size: 32,
-                ),
-              ),
-              const Text(
-                'Task Details',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
-                ),
-              ),
-              const Icon(
-                Icons.more_vert_outlined,
-                size: 36,
-              )
-            ],
-          ),
-        ),
-      ),
+      appBar: customAppBar(context, 'Task Details'),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -67,10 +37,8 @@ class TaskDetails extends StatelessWidget {
                 padding: const EdgeInsets.all(12.0),
                 child: Text(
                   task.getTitle(),
-                  style: const TextStyle(
-                    fontFamily: 'Poppins',
-                    fontSize: 16,
-                  ),
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      color: Colors.black, fontWeight: FontWeight.normal),
                 ),
               ),
             ),
@@ -93,9 +61,8 @@ class TaskDetails extends StatelessWidget {
                 child: Text(
                   task.getDescription(),
                   softWrap: true,
-                  style: const TextStyle(
-                    fontFamily: 'Poppins',
-                  ),
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      color: Colors.black, fontWeight: FontWeight.normal),
                 ),
               ),
             ),
@@ -119,8 +86,8 @@ class TaskDetails extends StatelessWidget {
                     padding: const EdgeInsets.all(12.0),
                     child: Text(
                       task.getDate(),
-                      style: const TextStyle(
-                          fontFamily: 'Poppins', fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: Colors.black, fontWeight: FontWeight.normal),
                     ),
                   ),
                 ],
