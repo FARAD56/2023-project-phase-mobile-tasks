@@ -48,6 +48,7 @@ class _EditTaskState extends State<EditTask> {
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
               child: TextField(
+                key: const Key('edit title'),
                 controller: titleController,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     color: Colors.black, fontWeight: FontWeight.normal),
@@ -123,6 +124,7 @@ class _EditTaskState extends State<EditTask> {
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
               child: TextField(
+                key: const Key('edit description'),
                 controller: descriptionController,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     color: Colors.black, fontWeight: FontWeight.normal),
@@ -137,6 +139,7 @@ class _EditTaskState extends State<EditTask> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: ElevatedButton(
+                key: const Key('edit task'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromRGBO(238, 111, 87, 1),
                 ),

@@ -7,24 +7,75 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
+import 'package:todolist/features/presentation/pages/create_new_task.dart';
+import 'package:todolist/features/presentation/pages/edit_task.dart';
+import 'package:todolist/features/presentation/pages/task_details.dart';
+import 'package:todolist/features/presentation/pages/to_do_list.dart';
 import 'package:todolist/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
-
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+  testWidgets('Test main page', (WidgetTester tester) async {
+    await tester.pumpWidget(const MaterialApp(home: MyApp()));
     await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.byType(ElevatedButton), findsOneWidget);
+    expect(find.byType(Image), findsOneWidget);
   });
+
+  testWidgets('Test Task Details', (WidgetTester tester) async {
+    await tester.pumpWidget(const MaterialApp(home: TaskDetails()));
+    await tester.pump();
+
+    expect(find.byType(Container), findsNWidgets(3));
+    expect(find.byType(Card), findsNWidgets(3));
+    expect(find.byType(ElevatedButton), findsOneWidget);
+    expect(find.byType(Image), findsOneWidget);
+  });
+
+  testWidgets('Test To do list', (WidgetTester tester) async {
+    await tester.pumpWidget(const MaterialApp(home: ToDoList()));
+    await tester.pump();
+
+    expect(find.byType(Icon), findsNWidgets(2));
+    expect(find.byType(ElevatedButton), findsOneWidget);
+    expect(find.byType(Image), findsOneWidget);
+  });
+
+  testWidgets('Test Create Task page', (WidgetTester tester) async {
+    await tester.pumpWidget(const MaterialApp(home: CreateTask()));
+    await tester.enterText(
+        find.byKey(const ValueKey("title")), 'My first Task');
+    await tester.enterText(
+        find.byKey(const ValueKey("description")), "I'll do abc");
+    await tester.tap(find.byKey(const ValueKey('Add Task')));
+
+    expect(find.text('My first Task'), findsOneWidget);
+    expect(find.text("I'll do abc"), findsOneWidget);
+  });
+
+  testWidgets('Test Edit Task page', (WidgetTester tester) async {
+    await tester.pumpWidget(const MaterialApp(home: EditTask()));
+    await tester.enterText(
+        find.byKey(const ValueKey("edit title")), 'My first Task');
+    await tester.enterText(
+        find.byKey(const ValueKey("edit description")), "I'll do abc");
+    await tester.tap(find.byKey(const ValueKey('Edit Task')));
+
+    expect(find.text('My first Task'), findsOneWidget);
+    expect(find.text("I'll do abc"), findsOneWidget);
+  });
+  
+  testWidgets('Test Edit Task page', (WidgetTester tester) async {
+    await tester.pumpWidget(const MaterialApp(home: EditTask()));
+    await tester.enterText(
+        find.byKey(const ValueKey("edit title")), 'My first Task');
+    await tester.enterText(
+        find.byKey(const ValueKey("edit description")), "I'll do abc");
+    await tester.tap(find.byKey(const ValueKey('Edit Task')));
+
+    expect(find.text('My first Task'), findsOneWidget);
+    expect(find.text("I'll do abc"), findsOneWidget);
+  });
+
+  
 }

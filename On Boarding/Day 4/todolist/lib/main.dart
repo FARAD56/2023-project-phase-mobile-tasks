@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-
 import 'package:todolist/features/presentation/pages/create_new_task.dart';
 import 'package:todolist/features/presentation/pages/edit_task.dart';
-import 'package:todolist/features/presentation/widgets/theme.dart';
 import 'package:todolist/features/presentation/pages/task_details.dart';
 import 'package:todolist/features/presentation/pages/to_do_list.dart';
-
+import 'package:todolist/features/presentation/widgets/theme.dart';
 
 void main() {
-  runApp(MaterialApp(theme: themeData,
+  runApp(MaterialApp(
+      theme: themeData,
       initialRoute: "/",
       onGenerateRoute: (settings) {
         return PageRouteBuilder(
@@ -48,6 +47,7 @@ class MyApp extends StatelessWidget {
       body: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
         Image.asset('assets/sticky.png'),
         ElevatedButton(
+            key: const Key('Get started'),
             onPressed: () {
               Navigator.pushNamed(context, "/todo");
             },

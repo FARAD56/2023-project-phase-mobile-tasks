@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/app_bar.dart';
 import '../../../models/taskclass.dart';
+import '../widgets/app_bar.dart';
 
 class CreateTask extends StatefulWidget {
   const CreateTask({super.key});
@@ -56,13 +56,17 @@ class _CreateTaskState extends State<CreateTask> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
                 child: TextFormField(
+                  key: const Key('title'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter some Text';
                     }
                     return null;
                   },
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.black),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .copyWith(color: Colors.black),
                   controller: titleController,
                   decoration: InputDecoration(
                     hintText: 'eg. UI/UX Design App',
@@ -104,10 +108,11 @@ class _CreateTaskState extends State<CreateTask> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          date,
-                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.black)
-                        ),
+                        Text(date,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(color: Colors.black)),
                         const Icon(
                           Icons.date_range_outlined,
                           size: 30,
@@ -132,13 +137,17 @@ class _CreateTaskState extends State<CreateTask> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
                 child: TextFormField(
+                  key: const Key('description'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Enter some text';
                     }
                     return null;
                   },
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.black),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .copyWith(color: Colors.black),
                   controller: descriptionController,
                   decoration: InputDecoration(
                     hintText:
@@ -152,6 +161,7 @@ class _CreateTaskState extends State<CreateTask> {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: ElevatedButton(
+                  key: const Key('Add Task'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromRGBO(238, 111, 87, 1),
                   ),
