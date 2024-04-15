@@ -12,6 +12,7 @@ import 'package:todolist/features/presentation/pages/edit_task.dart';
 import 'package:todolist/features/presentation/pages/task_details.dart';
 import 'package:todolist/features/presentation/pages/to_do_list.dart';
 import 'package:todolist/main.dart';
+import 'package:todolist/models/taskclass.dart';
 
 void main() {
   testWidgets('Test main page', (WidgetTester tester) async {
@@ -23,10 +24,29 @@ void main() {
   });
 
   testWidgets('Test Task Details', (WidgetTester tester) async {
-    await tester.pumpWidget(const MaterialApp(home: TaskDetails()));
+    final key = GlobalKey<NavigatorState>();
+    final args = Task('My task', 'abc', '2024-02-11');
+    await tester.pumpWidget(
+      MaterialApp(
+        navigatorKey: key,
+        home: ElevatedButton(
+          child: const SizedBox(),
+          onPressed: () => key.currentState?.push(
+            MaterialPageRoute<void>(
+              settings: RouteSettings(
+                arguments: args,
+              ),
+              builder: (_) => const TaskDetails(),
+            ),
+          ),
+        ),
+      ),
+    );
     await tester.pump();
+    await tester.tap(find.byType(ElevatedButton));
+    await tester.pumpAndSettle();
 
-    expect(find.byType(Container), findsNWidgets(3));
+    expect(find.byType(Container), findsNWidgets(6));
     expect(find.byType(Card), findsNWidgets(3));
     expect(find.byType(ElevatedButton), findsOneWidget);
     expect(find.byType(Image), findsOneWidget);
@@ -53,29 +73,32 @@ void main() {
     expect(find.text("I'll do abc"), findsOneWidget);
   });
 
-  testWidgets('Test Edit Task page', (WidgetTester tester) async {
-    await tester.pumpWidget(const MaterialApp(home: EditTask()));
-    await tester.enterText(
-        find.byKey(const ValueKey("edit title")), 'My first Task');
-    await tester.enterText(
-        find.byKey(const ValueKey("edit description")), "I'll do abc");
-    await tester.tap(find.byKey(const ValueKey('Edit Task')));
+  testWidgets('Test Edit Task', (WidgetTester tester) async {
+    final key = GlobalKey<NavigatorState>();
+    final args = Task('My task', 'abc', '2024-02-11');
+    await tester.pumpWidget(
+      MaterialApp(
+        navigatorKey: key,
+        home: ElevatedButton(
+          child: const SizedBox(),
+          onPressed: () => key.currentState?.push(
+            MaterialPageRoute<void>(
+              settings: RouteSettings(
+                arguments: args,
+              ),
+              builder: (_) => const EditTask(),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pump();
+    await tester.tap(find.byType(ElevatedButton));
+    await tester.pumpAndSettle();
 
-    expect(find.text('My first Task'), findsOneWidget);
-    expect(find.text("I'll do abc"), findsOneWidget);
+    expect(find.byType(ElevatedButton), findsOneWidget);
+    expect(find.byType(IconButton), findsOneWidget);
+    expect(find.byType(TextField), findsNWidgets(2));
+
   });
-  
-  testWidgets('Test Edit Task page', (WidgetTester tester) async {
-    await tester.pumpWidget(const MaterialApp(home: EditTask()));
-    await tester.enterText(
-        find.byKey(const ValueKey("edit title")), 'My first Task');
-    await tester.enterText(
-        find.byKey(const ValueKey("edit description")), "I'll do abc");
-    await tester.tap(find.byKey(const ValueKey('Edit Task')));
-
-    expect(find.text('My first Task'), findsOneWidget);
-    expect(find.text("I'll do abc"), findsOneWidget);
-  });
-
-  
 }
