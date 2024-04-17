@@ -8,21 +8,21 @@ class TodoModel {
       {required this.title,
       required this.description,
       required this.deadLine,
-      required this.id}); 
+      required this.id});
 
    Map<String,dynamic> toJson() =>{
     'title':title,
     'description':description,
-    'deadline': deadLine,
-    'ID':id
+    'deadLine': deadLine,
+    'id':id
   };
 
-  TodoModel.fromJson(Map<String,dynamic> json):
-      title=json['title'] as String,
-      description=json['description'] as String,
-      deadLine=json['deadline'] as String,
-      id=json['ID'] as int
-  ;
+  factory TodoModel.fromJson(Map<String, dynamic> json) {
+    return TodoModel(
+      title: json['title'] as String,
+      description: json['description'] as String,
+      deadLine: json['deadLine'] as String,
+      id: json['id'] as int,
+    );
+  }
 }
-
-
