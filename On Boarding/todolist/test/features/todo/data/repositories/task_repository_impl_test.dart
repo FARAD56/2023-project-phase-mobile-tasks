@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:todolist/core/platform/network_info.dart';
+import 'package:todolist/core/network/network_info.dart';
 import 'package:todolist/features/todo/data/datasources/task_local_data_source.dart';
 import 'package:todolist/features/todo/data/datasources/task_remote_data_source.dart';
 import 'package:todolist/features/todo/data/repositories/task_repository_impl.dart';
