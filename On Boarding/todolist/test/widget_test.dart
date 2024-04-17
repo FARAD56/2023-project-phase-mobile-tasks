@@ -7,10 +7,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:todolist/features/presentation/pages/create_new_task.dart';
-import 'package:todolist/features/presentation/pages/edit_task.dart';
-import 'package:todolist/features/presentation/pages/task_details.dart';
-import 'package:todolist/features/presentation/pages/to_do_list.dart';
+import 'package:todolist/features/todo/presentation/pages/create_new_task.dart';
+import 'package:todolist/features/todo/presentation/pages/edit_task.dart';
+import 'package:todolist/features/todo/presentation/pages/task_details.dart';
+import 'package:todolist/features/todo/presentation/pages/to_do_list.dart';
 import 'package:todolist/main.dart';
 import 'package:todolist/models/taskclass.dart';
 
@@ -25,7 +25,7 @@ void main() {
 
   testWidgets('Test Task Details', (WidgetTester tester) async {
     final key = GlobalKey<NavigatorState>();
-    final args = Task('My task', 'abc', '2024-02-11');
+    final args = Task('My task', 'abc', '2024-02-11', 1);
     await tester.pumpWidget(
       MaterialApp(
         navigatorKey: key,
@@ -75,7 +75,7 @@ void main() {
 
   testWidgets('Test Edit Task', (WidgetTester tester) async {
     final key = GlobalKey<NavigatorState>();
-    final args = Task('My task', 'abc', '2024-02-11');
+    final args = Task('My task', 'abc', '2024-02-11',1);
     await tester.pumpWidget(
       MaterialApp(
         navigatorKey: key,
