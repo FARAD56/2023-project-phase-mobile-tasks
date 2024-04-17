@@ -1,7 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:todolist/features/todo/data/models/todo_model.dart';
+
 
 import '../../../../fixtures/fixture_reader.dart';
 
@@ -36,9 +36,8 @@ void main() {
     test(
       'Checking to JSON validity',
       () async {
-
         final result = tTodoModel.toJson();
-        
+
         final expectedMap = {
           "title": "title",
           "description": "description",

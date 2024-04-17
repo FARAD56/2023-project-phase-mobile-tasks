@@ -1,21 +1,19 @@
-class TodoModel {
-  String title;
-  String description;
-  final int id;
-  String deadLine;
+import 'package:todolist/features/todo/domain/entities/task.dart';
 
-  TodoModel(
-      {required this.title,
-      required this.description,
-      required this.deadLine,
-      required this.id});
+class TodoModel extends Task {
+  TodoModel({
+    required super.title,
+    required super.description,
+    required super.deadLine,
+    required super.id,
+  });
 
-   Map<String,dynamic> toJson() =>{
-    'title':title,
-    'description':description,
-    'deadLine': deadLine,
-    'id':id
-  };
+  Map<String, dynamic> toJson() => {
+        'title': title,
+        'description': description,
+        'deadLine': deadLine,
+        'id': id
+      };
 
   factory TodoModel.fromJson(Map<String, dynamic> json) {
     return TodoModel(
