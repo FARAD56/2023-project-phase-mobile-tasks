@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart' hide Task;
 import 'package:todolist/core/error/failures.dart';
-import 'package:todolist/features/todo/domain/entities/Task.dart';
+import 'package:todolist/features/todo/domain/entities/task.dart';
 
 abstract class TaskRepository{
   Future<Either<Failure, String>> createTask(String title, String description, String deadline);

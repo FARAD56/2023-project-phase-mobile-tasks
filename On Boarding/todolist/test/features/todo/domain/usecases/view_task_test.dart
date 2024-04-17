@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart' hide Task;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:todolist/features/todo/domain/entities/Task.dart';
+import 'package:todolist/features/todo/domain/entities/task.dart';
 import 'package:todolist/features/todo/domain/repositories/task_repository.dart';
 import 'package:todolist/features/todo/domain/usecases/view_task.dart';
 
