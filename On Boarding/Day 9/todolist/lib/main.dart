@@ -3,8 +3,10 @@ import 'package:todolist/features/todo/presentation/pages/create_new_task.dart';
 import 'package:todolist/features/todo/presentation/pages/edit_task.dart';
 import 'package:todolist/features/todo/presentation/pages/task_details.dart';
 import 'package:todolist/features/todo/presentation/pages/to_do_list.dart';
+import './injection_container.dart' as di;
 
-void main() {
+void main() async {
+  await di.init();
   runApp(MaterialApp(
       initialRoute: "/",
       onGenerateRoute: (settings) {

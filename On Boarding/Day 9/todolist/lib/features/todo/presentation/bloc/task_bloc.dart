@@ -61,11 +61,10 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
         yield Loading();
         final failureOrTask = await viewTask(integer);
 
-        yield* _UpdateEventLoadedOrErrorState(failureOrTask,event);
+        yield* _updateEventLoadedOrErrorState(failureOrTask, event);
       });
     }
   }
-  
 
   Stream<TaskState> _eitherLoadedOrErrorState(
     Either<Failure, Task> failureOrTask,
@@ -76,7 +75,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     );
   }
 
-  Stream<TaskState> _UpdateEventLoadedOrErrorState(
+  Stream<TaskState> _updateEventLoadedOrErrorState(
       Either<Failure, Task> failureOrTask, UpdateTaskEvent event) async* {
     yield failureOrTask.fold(
       (failure) => Error(message: _mapFailureToMessage(failure)),
