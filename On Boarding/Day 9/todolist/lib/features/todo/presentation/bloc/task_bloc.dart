@@ -61,10 +61,11 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
         yield Loading();
         final failureOrTask = await viewTask(integer);
 
-        yield* _eitherLoadedOrErrorState(failureOrTask);
+        yield* _UpdateEventLoadedOrErrorState(failureOrTask,event);
       });
     }
   }
+  
 
   Stream<TaskState> _eitherLoadedOrErrorState(
     Either<Failure, Task> failureOrTask,
@@ -75,16 +76,18 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     );
   }
 
-  // Stream<TaskState> _eitherLoadedOrErrorStateEdit(
-  //     Either<Failure, Task> failureOrTask, TaskEvent event) async* {
-  //   yield failureOrTask.fold(
-  //     (failure) => Error(message: _mapFailureToMessage(failure)),
-  //     (task) {
-  //       task.title = ;
-  //       return Loaded(task: task);
-  //     },
-  //   );
-  // }
+  Stream<TaskState> _UpdateEventLoadedOrErrorState(
+      Either<Failure, Task> failureOrTask, UpdateTaskEvent event) async* {
+    yield failureOrTask.fold(
+      (failure) => Error(message: _mapFailureToMessage(failure)),
+      (task) {
+        task.title = event.title;
+        task.description = event.description;
+        task.deadLine = event.deadline;
+        return Loaded(task: task);
+      },
+    );
+  }
 
   String _mapFailureToMessage(Failure failure) {
     if (failure is ServerFailure) {
